@@ -1,0 +1,111 @@
+<h2 mat-dialog-title class="dialog-header">
+  <mat-icon class="header-icon">{{ titleIcon }}</mat-icon>
+  {{ dialogTitle }}
+</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <!-- Título -->
+  <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full-width">
+    <mat-label>Título</mat-label>
+    <input matInput formControlName="title" maxlength="120" />
+    @if (getFieldError('title'); as err) {
+      <mat-error>{{ err }}</mat-error>
+    }
+  </mat-form-field>
+
+  <!-- Descripción -->
+  <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full-width">
+    <mat-label>Descripción</mat-label>
+    <textarea matInput formControlName="description" rows="3" maxlength="1000"></textarea>
+    @if (getFieldError('description'); as err) {
+      <mat-error>{{ err }}</mat-error>
+    }
+  </mat-form-field>
+
+  <!-- Fecha de ejecución -->
+  <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full-width">
+    <mat-label>Fecha de ejecución</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="executionDate" [min]="minDate" readonly />
+    @if (!readonly) {
+      <mat-datepicker-toggle matIconSuffix [for]="picker" />
+    }
+    <mat-datepicker #picker />
+    @if (getFieldError('executionDate'); as err) {
+      <mat-error>{{ err }}</mat-error>
+    }
+  </mat-form-field>
+
+  <!-- Hora de ejecución (formato 12h AM/PM) -->
+  <div class="time-section">
+    <span class="time-section-label">Hora de ejecución</span>
+    <div class="time-controls">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="sel-hour">
+        <mat-label>Hora</mat-label>
+        <mat-select formControlName="executionHour">
+          @for (h of hours; track h) {
+            <mat-option [value]="h">{{ h }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <span class="time-colon">:</span>
+
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="sel-minute">
+        <mat-label>Min</mat-label>
+        <mat-select formControlName="executionMinute">
+          @for (m of minutes; track m) {
+            <mat-option [value]="m">{{ m }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="sel-ampm">
+        <mat-select formControlName="executionAmPm">
+          <mat-option value="AM">AM</mat-option>
+          <mat-option value="PM">PM</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Estado (solo en edición) -->
+  @if (isEdit) {
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full-width">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="status">
+        @for (s of statuses; track s.value) {
+          <mat-option [value]="s.value">{{ s.label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  }
+
+  <!-- Ítems -->
+  <div class="items-section-wrap">
+    <app-task-item-form [itemsArray]="itemsArray" [readonly]="readonly" />
+  </div>
+
+  @if (readonly) {
+    <p class="readonly-note">
+      <mat-icon class="readonly-icon">info</mat-icon>
+      Las tareas finalizadas o canceladas no pueden modificarse.
+    </p>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  @if (readonly) {
+    <button mat-flat-button color="primary" [mat-dialog-close]="false">Cerrar</button>
+  } @else {
+    <button mat-button [mat-dialog-close]="false">Cancelar</button>
+    <button mat-flat-button color="primary"
+            [disabled]="submitting()"
+            (click)="submit()">
+      @if (submitting()) {
+        <mat-spinner diameter="18" />
+      } @else {
+        Guardar
+      }
+    </button>
+  }
+</mat-dialog-actions>

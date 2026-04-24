@@ -1,0 +1,185 @@
+/* ── Contenedor principal ────────────────────────────── */
+.items-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Encabezado ──────────────────────────────────────── */
+.items-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.items-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #546e7a;
+
+  .label-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+  }
+}
+
+.items-count {
+  font-size: 12px;
+  font-weight: 500;
+  color: #78909c;
+  background: #e3f2fd;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+/* ── Barra de progreso ───────────────────────────────── */
+.items-progress {
+  border-radius: 4px;
+  height: 5px;
+  margin-bottom: 10px;
+}
+
+/* ── Lista de ítems ──────────────────────────────────── */
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.item-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 4px;
+  border-radius: 6px;
+  transition: background 0.15s;
+
+  &:hover {
+    background: #f0f4f8;
+  }
+}
+
+.drag-handle {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  color: #b0bec5;
+  cursor: grab;
+  flex-shrink: 0;
+
+  &.hidden {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.item-check {
+  flex-shrink: 0;
+}
+
+.item-description {
+  flex: 1;
+  font-size: 14px;
+  color: #37474f;
+  line-height: 1.4;
+  word-break: break-word;
+  transition: color 0.2s;
+
+  &.completed {
+    text-decoration: line-through;
+    color: #90a4ae;
+  }
+}
+
+.item-action-btn {
+  flex-shrink: 0;
+  width: 32px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+
+  &:hover { opacity: 1; }
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+  }
+}
+
+/* ── Sin ítems ───────────────────────────────────────── */
+.no-items {
+  font-size: 13px;
+  color: #90a4ae;
+  text-align: center;
+  padding: 12px 0 8px;
+  margin: 0;
+}
+
+/* ── Fila agregar nuevo ítem ─────────────────────────── */
+.add-item-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 6px 8px;
+  background: #ffffff;
+  border: 1px dashed #b0bec5;
+  border-radius: 8px;
+  transition: border-color 0.2s;
+
+  &:focus-within {
+    border-color: #1565c0;
+    border-style: solid;
+  }
+}
+
+.add-item-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  color: #90a4ae;
+  flex-shrink: 0;
+}
+
+.add-item-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: #37474f;
+  font-family: inherit;
+
+  &::placeholder {
+    color: #b0bec5;
+  }
+}
+
+.add-item-btn {
+  flex-shrink: 0;
+  height: 30px !important;
+  line-height: 28px !important;
+  font-size: 13px !important;
+  padding: 0 12px !important;
+  border-radius: 15px !important;
+}
+
+.add-item-error {
+  font-size: 11px;
+  color: #e53935;
+  padding-left: 36px;
+  margin-top: 2px;
+}

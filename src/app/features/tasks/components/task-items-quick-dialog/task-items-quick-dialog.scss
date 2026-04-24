@@ -1,0 +1,58 @@
+/* ── Encabezado ──────────────────────────────────────── */
+h2[mat-dialog-title].dialog-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px;
+  margin: -24px -0px 0 !important;
+  padding: 18px 24px !important;
+  background: linear-gradient(135deg, #e65100 0%, #bf360c 100%);
+  color: white !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  border-radius: 4px 4px 0 0;
+  line-height: 1.3 !important;
+}
+
+h2[mat-dialog-title].dialog-header::before {
+  display: none !important;
+}
+
+.header-icon {
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  opacity: 0.9;
+  flex-shrink: 0;
+}
+
+.header-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Contenido ───────────────────────────────────────── */
+mat-dialog-content {
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 18px !important;
+  overflow-x: hidden;
+}
+
+.quick-items-wrap {
+  padding: 12px 14px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+/* ── Acciones ────────────────────────────────────────── */
+mat-dialog-actions {
+  padding: 8px 16px 16px !important;
+
+  mat-spinner {
+    display: inline-block;
+  }
+}

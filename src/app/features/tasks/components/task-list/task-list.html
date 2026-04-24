@@ -1,0 +1,56 @@
+<!-- Banner de encabezado -->
+<div class="page-banner">
+  <div class="banner-text">
+    <h1 class="list-title">Mis tareas</h1>
+    <p class="list-subtitle">Administra y da seguimiento a tus actividades</p>
+  </div>
+  <button mat-flat-button class="new-task-btn" (click)="openCreateDialog()">
+    <mat-icon>add</mat-icon>
+    Nueva tarea
+  </button>
+</div>
+
+<!-- Filtros -->
+<app-task-filter-bar
+  [isMobile]="isMobile()"
+  (filterChange)="onFilterChange($event)" />
+
+<!-- Spinner de carga -->
+@if (loading()) {
+  <app-loading-spinner />
+}
+
+<!-- Lista de tarjetas -->
+@if (!loading()) {
+  @if (tasks().length > 0) {
+    <div class="task-card-list">
+      @for (task of tasks(); track task.id) {
+        <app-task-card
+          [task]="task"
+          [isMobile]="isMobile()"
+          (edit)="openEditDialog(task)"
+          (delete)="openDeleteDialog(task)"
+          (statusChangeTo)="handleStatusChange(task, $event)"
+          (quickItems)="openItemsDialog(task)" />
+      }
+    </div>
+  } @else {
+    <app-empty-state
+      icon="assignment"
+      message="No se encontraron tareas. ¡Crea una nueva!" />
+  }
+}
+
+<!-- Paginación -->
+@if (totalElements() > 0) {
+  <div class="paginator-wrap">
+    <mat-paginator
+      [length]="totalElements()"
+      [pageSize]="pageSize()"
+      [pageIndex]="currentPage()"
+      [pageSizeOptions]="[5, 10, 20]"
+      [hidePageSize]="isMobile()"
+      (page)="onPageChange($event)"
+      showFirstLastButtons />
+  </div>
+}

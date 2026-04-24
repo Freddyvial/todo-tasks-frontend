@@ -1,0 +1,86 @@
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 14px 18px;
+  background: white;
+  border-radius: var(--card-radius, 12px);
+  box-shadow: var(--card-shadow, 0 1px 4px rgba(0,0,0,.08));
+
+  .search-field {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .status-field {
+    min-width: 155px;
+  }
+
+  .search-icon {
+    color: #90a4ae;
+    margin-right: 4px;
+  }
+}
+
+/* Botones de filtro con forma de pastilla */
+.filter-btn {
+  border-radius: 24px !important;
+  height: 40px;
+  padding: 0 16px !important;
+  font-size: 13px !important;
+  font-weight: 500;
+  gap: 4px;
+  flex-shrink: 0;
+  transition: background .2s, color .2s, border-color .2s;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+  }
+
+  /* Estado activo — Pendientes */
+  &.filter-btn--pending {
+    background: #e3f2fd !important;
+    color: #1565c0 !important;
+    border-color: #1565c0 !important;
+    font-weight: 600;
+  }
+
+  /* Estado activo — Con alerta */
+  &.filter-btn--alert {
+    background: #ffebee !important;
+    color: #c62828 !important;
+    border-color: #ef9a9a !important;
+    font-weight: 600;
+  }
+
+  /* Limpiar */
+  &.filter-btn--clear {
+    color: #90a4ae;
+
+    &:hover {
+      color: #546e7a;
+    }
+  }
+}
+
+.filter-toggle-btn {
+  flex-shrink: 0;
+}
+
+/* Responsive: cuando los filtros están expandidos, ocupan toda la fila */
+@media (max-width: 599px) {
+  .filter-bar {
+    padding: 10px 12px;
+    gap: 8px;
+
+    .status-field,
+    .filter-btn {
+      flex: 1;
+    }
+  }
+}

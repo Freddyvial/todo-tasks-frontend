@@ -1,0 +1,148 @@
+.task-card {
+  border-radius: var(--card-radius, 12px) !important;
+  box-shadow: var(--card-shadow) !important;
+  border-left: 4px solid transparent;
+  transition: box-shadow .2s ease, transform .15s ease;
+  background: white !important;
+
+  &:hover {
+    box-shadow: var(--card-shadow-hover) !important;
+    transform: translateY(-2px);
+  }
+
+  /* Estados — borde izquierdo de color */
+  &--alert       { border-left-color: #c62828; }
+  &--programmed  { border-left-color: #1565c0; }
+  &--in-progress { border-left-color: #e65100; }
+  &--finished    { border-left-color: #2e7d32; }
+  &--cancelled   { border-left-color: #9e9e9e; }
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.card-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-radius: 8px;
+  transition: background 0.15s;
+
+  &--clickable {
+    cursor: pointer;
+    padding: 6px 8px;
+    margin: -6px -8px;
+
+    &:hover {
+      background: rgba(230, 81, 0, 0.06);
+    }
+  }
+}
+
+.card-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #1a237e;
+}
+
+.card-desc {
+  margin: 0;
+  font-size: 13px;
+  color: #607d8b;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-date {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #78909c;
+  margin-top: 2px;
+
+  .date-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+  }
+}
+
+.elapsed-time {
+  font-size: 11px;
+  font-weight: 600;
+  color: #c62828;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.status-wrapper {
+  position: relative;
+}
+
+.status-options-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .14);
+  border: 1px solid #e0e0e0;
+  min-width: max-content;
+}
+
+.card-progress {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.progress-label {
+  font-size: 12px;
+  color: #78909c;
+  font-weight: 500;
+}
+
+.delete-item {
+  color: var(--mat-sys-error);
+}
+
+.chip-items-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #e65100;
+  background: rgba(230, 81, 0, 0.1);
+  padding: 2px 7px;
+  border-radius: 10px;
+  border: 1px solid rgba(230, 81, 0, 0.25);
+}

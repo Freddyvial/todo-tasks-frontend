@@ -1,0 +1,75 @@
+<!-- PASO 1: Selección de nuevo estado -->
+@if (!confirming()) {
+  <h2 mat-dialog-title>Cambiar estado</h2>
+
+  <mat-dialog-content class="status-content">
+    <p class="status-row-label">Estado actual</p>
+    <app-task-status-badge [status]="data.task.status" />
+
+    @if (transitions.length > 0) {
+      <p class="status-row-label" style="margin-top:16px">Selecciona el nuevo estado</p>
+      <div class="transition-buttons">
+        @for (s of transitions; track s) {
+          <button mat-stroked-button class="transition-btn" (click)="selectStatus(s)">
+            {{ statusLabel[s] }}
+            <mat-icon class="arrow-icon">chevron_right</mat-icon>
+          </button>
+        }
+      </div>
+    } @else {
+      <p class="no-transitions">
+        <mat-icon>lock</mat-icon>
+        Este estado es final y no puede modificarse.
+      </p>
+    }
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="false">Cerrar</button>
+  </mat-dialog-actions>
+}
+
+<!-- PASO 2: Confirmación -->
+@if (confirming()) {
+  <h2 mat-dialog-title>Confirmar cambio de estado</h2>
+
+  <mat-dialog-content class="status-content">
+    <p class="status-row-label">Se realizará la siguiente transición:</p>
+
+    <div class="confirm-transition">
+      <app-task-status-badge [status]="data.task.status" />
+      <mat-icon class="arrow-forward">arrow_forward</mat-icon>
+      <app-task-status-badge [status]="selectedStatus()!" />
+    </div>
+
+    @if (selectedStatus() === 'FINISHED') {
+      <div class="confirm-note confirm-note--info">
+        <mat-icon>check_circle</mat-icon>
+        Todos los ítems de la tarea serán marcados como completados.
+      </div>
+    }
+
+    @if (selectedStatus() === 'CANCELLED') {
+      <div class="confirm-note confirm-note--warn">
+        <mat-icon>warning</mat-icon>
+        Esta acción no puede revertirse. La tarea quedará cancelada.
+      </div>
+    }
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button [disabled]="submitting()" (click)="cancelSelection()">
+      <mat-icon>arrow_back</mat-icon>
+      Atrás
+    </button>
+    <button mat-flat-button color="primary"
+            [disabled]="submitting()"
+            (click)="confirmChange()">
+      @if (submitting()) {
+        <mat-spinner diameter="18" />
+      } @else {
+        Confirmar
+      }
+    </button>
+  </mat-dialog-actions>
+}

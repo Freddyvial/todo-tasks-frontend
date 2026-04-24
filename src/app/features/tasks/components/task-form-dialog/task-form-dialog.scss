@@ -1,0 +1,127 @@
+/* ── Encabezado del dialog ───────────────────────────── */
+h2[mat-dialog-title].dialog-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px;
+  /* Extiende el encabezado a los bordes del dialog negando el padding del surface */
+  margin: -24px 0px 0 !important;
+  padding: 18px 24px !important;
+  background: linear-gradient(135deg, #1565c0 0%, #283593 100%);
+  color: white !important;
+  font-size: 17px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px;
+  border-radius: 4px 4px 0 0;
+  line-height: 1.3 !important;
+}
+
+/* MDC inyecta un ::before que actúa como flex-item y descentra el texto */
+h2[mat-dialog-title].dialog-header::before {
+  display: none !important;
+}
+
+.header-icon {
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  opacity: 0.9;
+  flex-shrink: 0;
+}
+
+/* ── Contenido del dialog ────────────────────────────── */
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 18px !important;
+  overflow-x: hidden;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* ── Selector de hora 12h ────────────────────────────── */
+.time-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.time-section-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #78909c;
+  padding-left: 2px;
+}
+
+.time-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+
+  .sel-hour   { width: 95px;  flex-shrink: 0; }
+  .sel-minute { width: 95px;  flex-shrink: 0; }
+  .sel-ampm   { width: 85px;  flex-shrink: 0; }
+
+  @media (max-width: 599px) {
+    .sel-hour, .sel-minute, .sel-ampm { flex: 1; width: auto; }
+  }
+}
+
+.time-colon {
+  font-size: 22px;
+  font-weight: 700;
+  color: #546e7a;
+  line-height: 1;
+  padding-bottom: 2px;
+  flex-shrink: 0;
+}
+
+/* ── Sección de ítems ────────────────────────────────── */
+.items-section-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+/* ── Nota de solo lectura ────────────────────────────── */
+.readonly-note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  background: #e3f2fd;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #1565c0;
+  margin: 0;
+
+  .readonly-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    flex-shrink: 0;
+  }
+}
+
+/* ── Acciones ────────────────────────────────────────── */
+mat-dialog-actions {
+  padding: 8px 16px 16px !important;
+
+  mat-spinner {
+    display: inline-block;
+  }
+}

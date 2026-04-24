@@ -1,0 +1,23 @@
+<h2 mat-dialog-title class="dialog-header">
+  <mat-icon class="header-icon">checklist</mat-icon>
+  <span class="header-title">{{ task.title }}</span>
+</h2>
+
+<mat-dialog-content>
+  <div class="quick-items-wrap">
+    <app-task-item-form [itemsArray]="itemsArray" [readonly]="false" />
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="false">Cancelar</button>
+  <button mat-flat-button color="primary"
+          [disabled]="submitting()"
+          (click)="save()">
+    @if (submitting()) {
+      <mat-spinner diameter="18" />
+    } @else {
+      Guardar
+    }
+  </button>
+</mat-dialog-actions>

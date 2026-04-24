@@ -1,0 +1,66 @@
+/* ── Banner de título ─────────────────────────────────── */
+.page-banner {
+  background: linear-gradient(135deg, #1565c0 0%, #283593 100%);
+  border-radius: 16px;
+  padding: 24px 28px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 16px rgba(21, 101, 192, .3);
+
+  @media (max-width: 599px) {
+    padding: 18px 16px;
+    border-radius: 12px;
+  }
+}
+
+.banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.list-title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.2px;
+
+  @media (max-width: 599px) {
+    font-size: 22px;
+  }
+}
+
+.list-subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, .75);
+}
+
+.new-task-btn {
+  background: white !important;
+  color: #1565c0 !important;
+  border-radius: 24px !important;
+  padding: 0 22px !important;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  mat-icon {
+    margin-right: 4px;
+  }
+}
+
+/* ── Paginación ───────────────────────────────────────── */
+.paginator-wrap {
+  margin-top: 16px;
+  background: white;
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}

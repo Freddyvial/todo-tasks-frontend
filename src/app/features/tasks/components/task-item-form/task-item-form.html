@@ -1,0 +1,70 @@
+<div class="items-section">
+
+  <!-- Encabezado con progreso -->
+  <div class="items-header">
+    <span class="items-label">
+      <mat-icon class="label-icon">checklist</mat-icon>
+      Ítems de la tarea
+    </span>
+    @if (totalCount > 0) {
+      <span class="items-count">{{ completedCount }} / {{ totalCount }} completados</span>
+    }
+  </div>
+
+  @if (totalCount > 0) {
+    <mat-progress-bar
+      mode="determinate"
+      [value]="progressValue"
+      class="items-progress" />
+  }
+
+  <!-- Lista de ítems -->
+  <div class="items-list">
+    @for (ctrl of itemsArray().controls; track $index) {
+      <div class="item-row" [formGroup]="getItemGroup($index)">
+        <mat-icon class="drag-handle" [class.hidden]="readonly()">drag_indicator</mat-icon>
+
+        <mat-checkbox formControlName="completed" class="item-check" />
+
+        <span class="item-description"
+              [class.completed]="getItemGroup($index).get('completed')?.value">
+          {{ getItemGroup($index).get('description')?.value }}
+        </span>
+
+        @if (!readonly()) {
+          <button mat-icon-button type="button" color="warn" class="item-action-btn"
+                  (click)="removeItem($index)"
+                  matTooltip="Eliminar ítem"
+                  aria-label="Eliminar ítem">
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        }
+      </div>
+    }
+
+    @if (totalCount === 0) {
+      <p class="no-items">Sin ítems aún.</p>
+    }
+  </div>
+
+  <!-- Fila para agregar nuevo ítem -->
+  @if (!readonly()) {
+    <div class="add-item-row">
+      <mat-icon class="add-item-icon">add_circle_outline</mat-icon>
+      <input
+        class="add-item-input"
+        [formControl]="newItemCtrl"
+        placeholder="Escribe un nuevo ítem..."
+        (keydown)="onNewItemKeydown($event)"
+        maxlength="250" />
+      <button mat-stroked-button type="button" class="add-item-btn"
+              (click)="addItem()">
+        Agregar
+      </button>
+    </div>
+    @if (newItemCtrl.touched && !newItemCtrl.value.trim()) {
+      <span class="add-item-error">Escribe una descripción antes de agregar.</span>
+    }
+  }
+
+</div>

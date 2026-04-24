@@ -1,0 +1,58 @@
+<div class="filter-bar">
+  <!-- Búsqueda -->
+  <mat-form-field appearance="outline" subscriptSizing="dynamic" class="search-field">
+    <mat-icon matPrefix class="search-icon">search</mat-icon>
+    <mat-label>Buscar por título o descripción</mat-label>
+    <input matInput [formControl]="searchControl" />
+  </mat-form-field>
+
+  <!-- Selector de estado -->
+  @if (!isMobile() || filtersExpanded()) {
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="status-field">
+      <mat-label>Estado</mat-label>
+      <mat-select [formControl]="statusControl">
+        <mat-option [value]="null">Todos</mat-option>
+        @for (s of statuses; track s.value) {
+          <mat-option [value]="s.value">{{ s.label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Toggle Pendientes -->
+    <button mat-stroked-button
+            [class.filter-btn--active]="pendingOnly()"
+            [class.filter-btn--pending]="pendingOnly()"
+            (click)="togglePending()"
+            matTooltip="Tareas pendientes de ejecución"
+            class="filter-btn">
+      <mat-icon>pending_actions</mat-icon>
+      Pendientes
+    </button>
+
+    <!-- Toggle Con alerta -->
+    <button mat-stroked-button
+            [class.filter-btn--active]="alertOnly()"
+            [class.filter-btn--alert]="alertOnly()"
+            (click)="toggleAlert()"
+            matTooltip="Tareas que ya deben iniciar"
+            class="filter-btn">
+      <mat-icon>notification_important</mat-icon>
+      Con alerta
+    </button>
+
+    <!-- Limpiar -->
+    <button mat-button class="filter-btn filter-btn--clear" (click)="clearFilters()">
+      <mat-icon>clear</mat-icon>
+      Limpiar
+    </button>
+  }
+
+  <!-- Expandir/colapsar en móvil -->
+  @if (isMobile()) {
+    <button mat-icon-button class="filter-toggle-btn"
+            (click)="filtersExpanded.set(!filtersExpanded())"
+            [matTooltip]="filtersExpanded() ? 'Ocultar filtros' : 'Mostrar filtros'">
+      <mat-icon>{{ filtersExpanded() ? 'expand_less' : 'tune' }}</mat-icon>
+    </button>
+  }
+</div>

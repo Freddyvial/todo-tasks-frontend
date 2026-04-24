@@ -1,0 +1,53 @@
+.app-toolbar {
+  background: linear-gradient(120deg, #1a237e 0%, #1565c0 55%, #0097a7 100%);
+  color: white;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .28);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  gap: 14px;
+
+  // Override Material's primary color variable so text stays white
+  --mat-toolbar-container-text-color: white;
+  --mat-toolbar-container-background-color: transparent;
+}
+
+.toolbar-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+  color: #80deea;
+  flex-shrink: 0;
+}
+
+.toolbar-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.toolbar-title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.toolbar-caption {
+  font-size: 12px;
+  opacity: 0.75;
+  letter-spacing: 0.3px;
+
+  @media (max-width: 599px) {
+    display: none;
+  }
+}
+
+.app-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 24px;
+
+  @media (max-width: 599px) {
+    padding: 14px 12px;
+  }
+}

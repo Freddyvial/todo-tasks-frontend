@@ -1,0 +1,95 @@
+<mat-card class="task-card"
+  [class.task-card--alert]="task().dueNowAlert"
+  [class.task-card--programmed]="!task().dueNowAlert && task().status === 'PROGRAMMED'"
+  [class.task-card--in-progress]="task().status === 'IN_PROGRESS'"
+  [class.task-card--finished]="task().status === 'FINISHED'"
+  [class.task-card--cancelled]="task().status === 'CANCELLED'">
+  <mat-card-content>
+    <div class="card-header">
+      <div class="card-info"
+           [class.card-info--clickable]="task().status === 'IN_PROGRESS'"
+           [matTooltip]="task().status === 'IN_PROGRESS' ? 'Clic para gestionar ítems' : ''"
+           (click)="task().status === 'IN_PROGRESS' && quickItems.emit()">
+        <!-- Alertas -->
+        <div class="card-chips">
+          @if (task().pendingExecution) {
+            <span class="chip-pending">Pendiente</span>
+          }
+          @if (task().dueNowAlert) {
+            <span class="chip-alert" matTooltip="Esta tarea debía iniciar el {{ task().executionDate | date:'dd/MM/yyyy HH:mm' }}. Está pendiente de ejecución.">
+              <mat-icon style="font-size:14px;width:14px;height:14px;line-height:14px">warning</mat-icon>
+              Por iniciar
+            </span>
+          }
+          @if (task().status === 'IN_PROGRESS' && task().totalItems > 0) {
+            <span class="chip-items-hint">
+              <mat-icon style="font-size:13px;width:13px;height:13px;line-height:13px">touch_app</mat-icon>
+              Ver ítems
+            </span>
+          }
+        </div>
+
+        <h3 class="card-title">{{ task().title }}</h3>
+
+        @if (task().description && !isMobile()) {
+          <p class="card-desc">{{ task().description }}</p>
+        }
+
+        <span class="card-date">
+          <mat-icon class="date-icon">calendar_today</mat-icon>
+          {{ task().executionDate | date:'dd/MM/yyyy HH:mm' : '' : 'es' }}
+          @if (task().dueNowAlert) {
+            <span class="elapsed-time">({{ task().executionDate | elapsedTime }})</span>
+          }
+        </span>
+      </div>
+
+      <div class="card-actions">
+        <!-- Badge + opciones de estado inline (sin menú) -->
+        <div class="status-wrapper">
+          <app-task-status-badge
+            [status]="task().status"
+            [clickable]="availableTransitions().length > 0"
+            (click)="availableTransitions().length > 0 && toggleStatusOptions()" />
+
+          @if (showStatusOptions()) {
+            <div class="status-options-panel">
+              @for (t of availableTransitions(); track t.value) {
+                <app-task-status-badge
+                  [status]="t.value"
+                  [clickable]="true"
+                  [showArrow]="false"
+                  (click)="selectStatus(t.value)" />
+              }
+            </div>
+          }
+        </div>
+
+        <button mat-icon-button [matMenuTriggerFor]="actionsMenu" aria-label="Acciones">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #actionsMenu="matMenu">
+          <button mat-menu-item (click)="edit.emit()">
+            <mat-icon>{{ task().status === 'FINISHED' || task().status === 'CANCELLED' ? 'visibility' : 'edit' }}</mat-icon>
+            <span>{{ task().status === 'FINISHED' || task().status === 'CANCELLED' ? 'Ver' : 'Editar' }}</span>
+          </button>
+          <button mat-menu-item class="delete-item" (click)="delete.emit()">
+            <mat-icon>delete</mat-icon>
+            <span>Eliminar</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <!-- Progreso de ítems -->
+    @if (task().totalItems > 0) {
+      <div class="card-progress">
+        <span class="progress-label">
+          {{ task().completedItems }} / {{ task().totalItems }} ítems completados
+        </span>
+        <mat-progress-bar mode="determinate" [value]="progress" />
+      </div>
+    }
+  </mat-card-content>
+</mat-card>
